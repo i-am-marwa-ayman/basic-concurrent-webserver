@@ -2,3 +2,4 @@
 wclient
 wserver
 *.cgi
+.vscode
