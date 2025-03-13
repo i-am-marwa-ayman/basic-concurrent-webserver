@@ -50,15 +50,18 @@ void *master(void *arg){
     return NULL;
 }
 void *worker(){
-    pthread_mutex_lock(&b->lock);
-    while (b->front == -1 || b->front == b->rear + 1){
-        pthread_cond_wait(&b->fill, &b->lock);
+    while (1){
+        pthread_mutex_lock(&b->lock);
+        while (b->front == -1 || b->front == b->rear + 1){
+            pthread_cond_wait(&b->fill, &b->lock);
+        }
+        int conn_fd = b->buffer[b->front++];
+        pthread_cond_signal(&b->empty);
+        pthread_mutex_unlock(&b->lock);
+
+        request_handle(conn_fd);
+        close_or_die(conn_fd);
     }
-    int conn_fd = b->buffer[b->front++];
-    request_handle(conn_fd);
-	close_or_die(conn_fd);
-    pthread_cond_signal(&b->empty);
-    pthread_mutex_unlock(&b->lock);
     return NULL;
 }
 
