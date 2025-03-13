@@ -13,6 +13,7 @@ typedef struct {
     pthread_cond_t empty;
 } buffer_t ;
 void init(int size);
-void *master(int port);
+void *master(void *arg);
 void *worker();
+void destroy();
 #endif 
