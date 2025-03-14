@@ -41,7 +41,7 @@ Example:
 
 Example:
 ```bash
-./wclient localhost 8080 /index.html
+./wclient localhost 8080 /small.html
 ```
 Example:
 
@@ -99,5 +99,4 @@ Through this project, I applied several key OSTEP concepts:
 
 ## Future Improvements
 
-- Make a circular queue for better buffer handling.
 - Add Smallest File First (SFF) scheduling Policy.
